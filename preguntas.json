@@ -1,0 +1,17 @@
+[
+    {
+        "q": "¿Qué teoría del aprendizaje destaca el andamiaje y la Zona de Desarrollo Próximo?",
+        "options": ["A) Lev Vygotsky", "B) Ivan Pávlov", "C) Jean Piaget"],
+        "correct": 0
+    },
+    {
+        "q": "¿Qué tipo de motivación se debe activar para lograr cambios duraderos en el usuario?",
+        "options": ["A) Motivación biológica pura", "B) Motivación secundaria (logro y autorrealización)", "C) Estímulos basados en castigos"],
+        "correct": 1
+    },
+    {
+        "q": "En personas con demencia, ¿cuál es un obstáculo clave para el aprendizaje?",
+        "options": ["A) Memoria prodigiosa", "B) Pérdida de memoria y apatía", "C) Exceso de agilidad mental"],
+        "correct": 1
+    }
+]
