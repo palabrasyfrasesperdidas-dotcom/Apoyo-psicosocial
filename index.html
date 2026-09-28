@@ -1,419 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9YKWEY6WPF"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-9YKWEY6WPF');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Palabras y frases perdidas | Arcade Edition</title>
-    <meta name="description" content="Pantalla de inicio interactiva estilo videojuego clásico para explorar la colección multilingüe de huellas y reflexiones literarias.">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    
+    <title>Arcade Psicosocial - Retro Game</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
         body {
-            background-color: #08080c;
-            color: #ffffff;
-            font-family: 'Montserrat', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 15px 20px;
+            background-color: #111;
+            color: #0ff;
+            font-family: 'Courier New', Courier, monospace;
             text-align: center;
-            overflow-x: hidden;
-        }
-
-        #arcade-splash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(8, 8, 12, 0.98);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            cursor: pointer;
-            transition: opacity 0.5s ease;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        #arcade-splash::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
-            background-size: 100% 4px;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .arcade-splash-content {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 520px;
-            width: 100%;
-        }
-
-        /* Logotipo / Título superior estilo pixel art arcade */
-        .arcade-title-pixel {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 1.05rem;
-            color: #ffcc00;
-            text-shadow: 3px 3px #d6249f, 0 0 20px rgba(255, 204, 0, 0.6);
-            margin-bottom: 20px;
-            line-height: 1.6;
-            text-align: center;
-            padding: 0 10px;
-        }
-
-        /* Contenedor principal de la ilustración */
-        .arcade-image-container {
-            position: relative;
-            width: 100%;
-            max-width: 360px;
-            aspect-ratio: 1 / 1;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 3px solid #ffcc00;
-            box-shadow: 0 10px 40px rgba(214, 36, 159, 0.5), 0 0 25px rgba(255, 204, 0, 0.3);
-            margin-bottom: 22px;
-            background: #000;
-        }
-
-        .arcade-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            image-rendering: pixelated;
-            display: block;
-            animation: sceneBreathing 4s ease-in-out infinite;
-        }
-
-        /* Efecto animado superpuesto para hoguera y magia */
-        .arcade-image-container::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 52% 55%, rgba(255, 140, 0, 0.35) 0%, rgba(0, 255, 200, 0.15) 40%, transparent 70%);
-            mix-blend-mode: screen;
-            pointer-events: none;
-            animation: fireFlicker 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes fireFlicker {
-            0% { opacity: 0.6; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1.02); }
-            100% { opacity: 0.7; transform: scale(1); }
-        }
-
-        @keyframes sceneBreathing {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.015); }
-        }
-
-        .press-start-text {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.95rem;
-            color: #ffffff;
-            animation: blink 1s infinite;
-            letter-spacing: 2px;
-            border: 2px dashed #ffcc00;
-            padding: 14px 24px;
-            border-radius: 8px;
-            background: rgba(255, 204, 0, 0.12);
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.2; }
-        }
-
-        .arcade-credits {
-            margin-top: 18px;
-            font-size: 0.7rem;
-            color: #777;
-            font-family: 'Press Start 2P', monospace;
-        }
-
-        /* Contenido Principal */
-        #main-content {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.8s ease;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #main-content.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 4px;
-            flex-wrap: wrap;
-        }
-        h1 {
-            font-size: 2.2rem;
-            color: #e0e0e0;
             margin: 0;
+            padding: 20px;
         }
-
-        .instagram-icon-btn {
+        #game-container {
             position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-            color: #ffffff;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-            flex-shrink: 0;
+            width: 400px;
+            height: 500px;
+            background: #222;
+            border: 4px solid #f0f;
+            margin: 0 auto;
+            overflow: hidden;
         }
-        .instagram-icon-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
+        /* HUD Superior estilo Arcade */
+        .hud {
+            display: flex;
+            justify-content: space-around;
+            background: #000;
+            padding: 10px;
+            font-size: 14px;
+            border-bottom: 2px solid #0ff;
         }
-        .instagram-icon-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(214,36,159,0.4);
-        }
-
-        .instagram-icon-btn .tooltip {
-            visibility: hidden;
-            background-color: #1f1f1f;
-            color: #fff;
-            text-align: center;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            white-space: nowrap;
+        /* Pantalla de Preguntas (Modal) */
+        #question-modal {
+            display: none;
             position: absolute;
-            top: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: 1px solid #444;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
             z-index: 10;
         }
-        .instagram-icon-btn:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        p.subtitle {
-            font-size: 1.05rem;
-            color: #888888;
-            margin-bottom: 15px;
-        }
-        .intro-container {
-            width: 100%;
-            max-width: 650px;
-            margin-bottom: 15px;
-        }
-        .intro-video-wrapper {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.85);
-            background: #000;
-        }
-        .intro-video-wrapper video {
-            width: 100%;
-            height: 100%;
+        .btn-option {
             display: block;
-            object-fit: cover;
-        }
-        .nav-container {
             width: 100%;
-            max-width: 780px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            background: #333;
+            color: #0ff;
+            border: 2px solid #0ff;
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-family: inherit;
         }
-        .lang-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        .lang-grid a, .lang-grid .lang-disabled {
-            padding: 9px 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            background-color: #1f1f1f;
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .lang-grid a:hover {
-            background-color: #333;
-            border-color: #777;
-            transform: translateY(-2px);
-        }
-        .lang-grid .lang-disabled {
-            background-color: #141414;
-            border-color: #2c2c2c;
-            color: #666;
-            cursor: default;
-        }
-
-        @media (max-width: 580px) {
-            body { padding: 15px; justify-content: flex-start; }
-            h1 { font-size: 1.5rem; }
-            .header-container { gap: 8px; }
-            .instagram-icon-btn { width: 34px; height: 34px; }
-            .instagram-icon-btn svg { width: 18px; height: 18px; }
-            p.subtitle { font-size: 0.9rem; margin-bottom: 12px; }
-            .intro-container { max-width: 100%; margin-bottom: 12px; }
-            .arcade-title-pixel { font-size: 0.9rem; margin-bottom: 15px; }
-            .arcade-image-container { max-width: 280px; }
-            .press-start-text { font-size: 0.8rem; padding: 12px 18px; }
-            .lang-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-            .lang-grid a, .lang-grid .lang-disabled {
-                padding: 9px 10px;
-                font-size: 0.85rem;
-            }
-            .lang-grid > *:last-child:nth-child(odd) {
-                grid-column: span 2;
-            }
+        .btn-option:hover {
+            background: #0ff;
+            color: #000;
         }
     </style>
 </head>
 <body>
 
-    <!-- Pantalla de Inicio Estilo Arcade -->
-    <div id="arcade-splash" onclick="startAdventure()">
-        <div class="arcade-splash-content">
-            <div class="arcade-title-pixel">PALABRAS Y FRASES PERDIDAS</div>
-            
-            <div class="arcade-image-container">
-                <img src="save-point.png" alt="Save Point Near">
-            </div>
+    <h1>RETRO APPS ARCADE</h1>
+    
+    <div id="game-container">
+        <!-- Panel superior tipo arcade -->
+        <div class="hud">
+            <span>SCORE: <b id="score">0</b></span>
+            <span>SPEED: <b id="speed">120</b> mph</span>
+        </div>
 
-            <div class="press-start-text">PRESS START</div>
-            <div class="arcade-credits">© 2026 - ARCADE EDITION</div>
+        <!-- Área de juego / carretera simulada -->
+        <div id="canvas-area" style="position: relative; height: 400px;">
+            <div id="car" style="position: absolute; bottom: 20px; left: 180px; font-size: 30px;">🏎️</div>
+            <div id="coin" style="position: absolute; top: 50px; left: 190px; font-size: 24px; cursor: pointer;" onclick="triggerQuestion()">🪙</div>
+        </div>
+
+        <!-- Ventana Modal de Preguntas -->
+        <div id="question-modal">
+            <h3 id="q-text">¿Qué teoría destaca el andamiaje?</h3>
+            <button class="btn-option" onclick="checkAnswer(true)">A) Lev Vygotsky</button>
+            <button class="btn-option" onclick="checkAnswer(false)">B) Condicionamiento clásico</button>
         </div>
     </div>
-
-    <!-- Contenido Principal -->
-    <div id="main-content">
-        <div class="header-container">
-            <h1>Palabras y frases perdidas</h1>
-            <a href="https://www.instagram.com/palabrasyfrasesperdidas" target="_blank" rel="noopener noreferrer" class="instagram-icon-btn">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.58 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                <span class="tooltip">Visitar cuenta / Visit profile</span>
-            </a>
-        </div>
-        <p class="subtitle">Colección de huellas y reflexiones</p>
-
-        <div class="intro-container">
-            <div class="intro-video-wrapper">
-                <video id="intro-video" muted playsinline>
-                    <source src="Intro PYFP.mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de este vídeo.
-                </video>
-            </div>
-        </div>
-
-        <div class="nav-container">
-            <div class="lang-grid">
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-es/">🇪🇸 Español</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-en/">🇬🇧 English</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-jp/">🇯🇵 日本語</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-fr/">🇫🇷 Français</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-al/">🇩🇪 Deutsch</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-pt/">🇵🇹 Português</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-ru/">🇷🇺 Русский</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-ar/">🇸🇦 العربية</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-hi/">🇮🇳 हिन्दी</a>
-                <a href="https://palabrasyfrasesperdidas-dotcom.github.io/palabras-per/">🇮🇷 فارسی</a>
-                <div class="lang-disabled">Próximamente</div>
-                <div class="lang-disabled">Próximamente</div>
-            </div>
-        </div>
-    </div>
-
-    <audio id="bg-music" loop preload="auto">
-        <source src="arcade-theme.mp3" type="audio/mpeg">
-        Tu navegador no soporta la reproducción de audio.
-    </audio>
 
     <script>
-        function startAdventure() {
-            const splash = document.getElementById('arcade-splash');
-            const mainContent = document.getElementById('main-content');
-            const video = document.getElementById('intro-video');
-            const bgMusic = document.getElementById('bg-music');
+        let score = 0;
 
-            splash.style.opacity = '0';
-            setTimeout(() => {
-                splash.style.display = 'none';
-                mainContent.classList.add('active');
-                
-                    if (video) {
-                        video.play().catch(e => console.log("Autoplay prevented:", e));
-                    }
-                
-                if (bgMusic) {
-                    bgMusic.volume = 0.5;
-                    bgMusic.play().catch(e => console.log("Autoplay de audio bloqueado:", e));
-                }
-            }, 500);
+        function triggerQuestion() {
+            // Pausa el juego y muestra la pregunta al alcanzar la moneda
+            document.getElementById('question-modal').style.display = 'block';
         }
 
-        window.addEventListener('keydown', function(e) {
-            const splash = document.getElementById('arcade-splash');
-            if (splash.style.display !== 'none') {
-                startAdventure();
+        function checkAnswer(isCorrect) {
+            if (isCorrect) {
+                score += 100;
+                document.getElementById('score').innerText = score;
+                alert('¡Correcto! +100 Puntos');
+            } else {
+                alert('¡Incorrecto!');
             }
-        });
+            // Oculta la pregunta y reanuda el juego
+            document.getElementById('question-modal').style.display = 'none';
+            // Reposiciona la moneda aleatoriamente
+            document.getElementById('coin.style.left = (Math.random() * 300) + 'px';
+        }
     </script>
+
 </body>
 </html>
